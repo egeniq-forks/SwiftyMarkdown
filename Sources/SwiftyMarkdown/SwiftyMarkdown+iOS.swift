@@ -17,7 +17,8 @@ extension SwiftyMarkdown {
 		let textStyle : UIFont.TextStyle
 		var fontName : String?
 		var fontSize : CGFloat?
-		
+        var maximumFontSize : CGFloat
+        
 		var globalBold = false
 		var globalItalic = false
 		
@@ -67,6 +68,7 @@ extension SwiftyMarkdown {
 		
 		fontName = style.fontName
 		fontSize = style.fontSize
+        maximumFontSize = style.maximumFontSize
 		switch style.fontStyle {
 		case .bold:
 			globalBold = true
@@ -122,8 +124,13 @@ extension SwiftyMarkdown {
             if let customFont = UIFont(name: existentFontName, size: finalSize), fontSize != nil {
                 font = customFont
             } else if let customFont = UIFont(name: existentFontName, size: finalSize), fontSize == nil {
-                let fontMetrics = UIFontMetrics(forTextStyle: textStyle)
-                font = fontMetrics.scaledFont(for: customFont)
+                if maximumFontSize > 0 {
+                    let fontMetrics = UIFontMetrics(forTextStyle: textStyle)
+                    font = fontMetrics.scaledFont(for: customFont, maximumPointSize: maximumFontSize)
+                } else {
+                    let fontMetrics = UIFontMetrics(forTextStyle: textStyle)
+                    font = fontMetrics.scaledFont(for: customFont)
+                }
             } else {
                 font = UIFont.preferredFont(forTextStyle: textStyle)
             }

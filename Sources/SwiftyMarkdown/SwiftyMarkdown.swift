@@ -98,6 +98,8 @@ enum MarkdownLineStyle : LineStyling {
 	var color : UIColor { get set }
 	var fontSize : CGFloat { get set }
 	var fontStyle : FontStyle { get set }
+    var maximumFontSize: CGFloat { get set }
+//    var textStyle: UIFont.TextStyle? { get set }
 }
 #endif
 
@@ -121,6 +123,8 @@ If that is not set, then the system default will be used.
 	public var color = NSColor.black
 	#else
 	public var color = UIColor.black
+//    public var textStyle: UIFont.TextStyle?
+    public var maximumFontSize : CGFloat = 0.0
 	#endif
 	public var fontSize : CGFloat = 0.0
 	public var fontStyle : FontStyle = .normal
@@ -132,6 +136,8 @@ If that is not set, then the system default will be used.
 	public var color = NSColor.black
 	#else
 	public var color = UIColor.black
+//    public var textStyle: UIFont.TextStyle?
+    public var maximumFontSize: CGFloat = 0.0
 	#endif
 	public var fontSize : CGFloat = 0.0
 	public var fontStyle : FontStyle = .normal
@@ -335,6 +341,27 @@ If that is not set, then the system default will be used.
 		strikethrough.fontSize = size
 	}
 	
+    /**
+    Set font size for all styles
+    
+    - parameter size: size of font
+    */
+    open func setMaximumFontSizeForAllStyles(with size: CGFloat) {
+        h1.maximumFontSize = size
+        h2.maximumFontSize = size
+        h3.maximumFontSize = size
+        h4.maximumFontSize = size
+        h5.maximumFontSize = size
+        h6.maximumFontSize = size
+        body.maximumFontSize = size
+        italic.maximumFontSize = size
+        bold.maximumFontSize = size
+        code.maximumFontSize = size
+        link.maximumFontSize = size
+        link.maximumFontSize = size
+        strikethrough.maximumFontSize = size
+    }
+    
 	#if os(macOS)
 	open func setFontColorForAllStyles(with color: NSColor) {
 		h1.color = color
